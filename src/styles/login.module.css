@@ -35,3 +35,10 @@
 .input {
   width: 50%;
 }
+
+.errorMessage {
+  margin-top: 15px;
+  color: red;
+  padding: 10px 15px;
+  background-color: #ff000042;
+}
