@@ -3,6 +3,7 @@ import styles from "../styles/signup.module.css";
 import { Auth } from "aws-amplify";
 import { Link, useNavigate } from "react-router-dom";
 import { API } from "aws-amplify";
+import Axios from "axios";
 
 const { REACT_APP_API_URL } = process.env
 
@@ -22,8 +23,9 @@ const Signup = (props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    API.get(REACT_APP_API_URL, `/department/departments`).then(res => {
-      setDepartmentList(res.departments || [])
+
+    Axios.get(`http://ec2-54-210-27-133.compute-1.amazonaws.com:3000/department/departments`).then(res => {
+      setDepartmentList(res.data.departments || [])
     }).catch(e => console.log(e))
   }, [])
 
