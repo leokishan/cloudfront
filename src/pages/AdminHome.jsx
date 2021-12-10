@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, ListGroup, Badge } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
-import axios from "axios";
+import { API } from "aws-amplify";
 import ProviderImg from "../images/provider.png";
 
 const AdminHome = () => {
@@ -14,8 +14,8 @@ const AdminHome = () => {
   }, []);
 
   const deleteUser = (id) => {
-    axios
-      .post(`${REACT_APP_API_URL}/user/deleteuser`, {
+    API
+      .post(REACT_APP_API_URL, `/user/deleteuser`, {
         user_id: id,
       })
       .then((res) => {
@@ -25,10 +25,10 @@ const AdminHome = () => {
   };
 
   const getUsers = () => {
-    axios
-      .get(`${REACT_APP_API_URL}/user/users`)
+    API
+      .get(REACT_APP_API_URL, `/user/users`)
       .then((res) => {
-        setUserList(res.data.users || []);
+        setUserList(res.users || []);
       })
       .catch((e) => console.log(e));
   };

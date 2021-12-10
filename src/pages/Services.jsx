@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, ListGroup, Badge } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
-import axios from "axios";
+import { API } from "aws-amplify";
 import Service from "../images/service.png";
 
 const Services = () => {
@@ -11,8 +11,8 @@ const Services = () => {
     getService();
   }, []);
   const deleteService = (id) => {
-    axios
-      .post(`${REACT_APP_API_URL}/service/deleteservice`, {
+    API
+      .post(REACT_APP_API_URL, `/service/deleteservice`, {
         service_id: id,
       })
       .then((res) => {
@@ -21,10 +21,10 @@ const Services = () => {
       .catch((e) => console.log(e));
   };
   const getService = () => {
-    axios
-      .get(`${REACT_APP_API_URL}/service/services`)
+    API
+      .get(REACT_APP_API_URL, `/service/services`)
       .then((res) => {
-        setServiceList(res.data.services || []);
+        setServiceList(res.services || []);
       })
       .catch((e) => console.log(e));
   };

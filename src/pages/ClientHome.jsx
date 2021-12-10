@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom"
 import Choice from "../images/choice.png"
-import axios from "axios";
+import { API } from "aws-amplify";
 import { useNavigate } from "react-router-dom"
 
 const { REACT_APP_API_URL } = process.env;
@@ -12,10 +12,10 @@ const ClientHome = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    axios
-      .get(`${REACT_APP_API_URL}/department/departments`)
+    API
+      .get(REACT_APP_API_URL, `/department/departments`)
       .then((res) => {
-        setDepartmentList(res.data.departments || []);
+        setDepartmentList(res.departments || []);
       })
       .catch((e) => console.log(e));
   }, []);

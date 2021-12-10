@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Service from "../images/service.png";
 import { Card, Badge, Button } from "react-bootstrap";
 import { Auth } from "aws-amplify";
-import axios from "axios";
+import { API } from "aws-amplify";
 
 const { REACT_APP_API_URL } = process.env;
 
@@ -16,20 +16,20 @@ const ProviderHome = () => {
   const getServiceInfo = async () => {
     let data = await Auth.currentAuthenticatedUser().catch((err) => ({}));
     if (data?.attributes.sub) {
-      axios
-        .post(`${REACT_APP_API_URL}/service/provider_services`, {
+      API
+        .post(REACT_APP_API_URL, `/service/provider_services`, {
           provider_id: data?.attributes.sub,
         })
         .then((res) => {
-          setWorks(res.data.services || []);
+          setWorks(res.services || []);
         })
         .catch((e) => console.log(e));
     }
   };
 
   const changeStatus = (ele, status) => {
-    axios
-      .patch(`${REACT_APP_API_URL}/service/modifyservice`, {
+    API
+      .patch(REACT_APP_API_URL, `/service/modifyservice`, {
         service_id: ele.service_id,
         updateKey: "service_status",
         updateValue: status,

@@ -1,4 +1,4 @@
-import axios from "@aws-amplify/storage/node_modules/axios";
+import { API } from "aws-amplify";
 import { Card } from "react-bootstrap";
 import ProviderImg from "../images/provider.png";
 import React, { useEffect, useState } from "react";
@@ -18,10 +18,10 @@ const ListProvider = () => {
   }
 
   useEffect(() => {
-    axios
-      .get(`${REACT_APP_API_URL}/user/users`)
+    API
+      .get(REACT_APP_API_URL, `/user/users`)
       .then((res) => {
-        setUserList(res.data.users || []);
+        setUserList(res.users || []);
       })
       .catch((e) => console.log(e));
   }, []);

@@ -3,7 +3,7 @@ import { Auth } from "aws-amplify"
 import styles from "../styles/viewUser.module.css";
 import { useLocation, useNavigate } from "react-router";
 import { Button, Card } from "react-bootstrap"
-import axios from "axios"
+import { API } from "aws-amplify";
 import Service from "../images/service.png";
 
 const { REACT_APP_API_URL } = process.env
@@ -36,7 +36,7 @@ const ProviderDetails = () => {
       client_name: userData.name,
       client_email: userData.email,
     }
-    axios.post(`${REACT_APP_API_URL}/service/addservice`, params).then(res => {
+    API.post(REACT_APP_API_URL, `/service/addservice`, params).then(res => {
       setValues({ service_charge: "", service_type: "" })
     })
   }
@@ -46,13 +46,13 @@ const ProviderDetails = () => {
       let data = await Auth.currentAuthenticatedUser().catch(err => ({}))
       setUserData(data?.attributes || {});
 
-      axios
-        .post(`${REACT_APP_API_URL}/service/provider_services`, {
+      API
+        .post(REACT_APP_API_URL, `/service/provider_services`, {
           provider_id: location.state.user_id,
           service_status: "Finished"
         })
         .then((res) => {
-          setWorks(res.data.services || []);
+          setWorks(res.services || []);
         })
         .catch((e) => console.log(e));
     } catch (err) {

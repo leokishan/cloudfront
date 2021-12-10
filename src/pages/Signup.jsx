@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "../styles/signup.module.css";
 import { Auth } from "aws-amplify";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios"
+import { API } from "aws-amplify";
 
 const { REACT_APP_API_URL } = process.env
 
@@ -22,8 +22,8 @@ const Signup = (props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`${REACT_APP_API_URL}/department/departments`).then(res => {
-      setDepartmentList(res.data.departments || [])
+    API.get(REACT_APP_API_URL, `/department/departments`).then(res => {
+      setDepartmentList(res.departments || [])
     }).catch(e => console.log(e))
   }, [])
 
@@ -55,7 +55,7 @@ const Signup = (props) => {
       },
     }).then(async(res) => {
       let departmentObj = departmentList.find(ele => ele.department_id === values.department)
-      await axios.post(`${REACT_APP_API_URL}/user/adduser`, {
+      await API.post(REACT_APP_API_URL, `/user/adduser`, {
         user_id: res.userSub,
         user_type: values.loginType,
         user_name: values.name,
