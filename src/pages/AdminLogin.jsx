@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { Auth } from "aws-amplify"
 import styles from "../styles/login.module.css";
 import { useNavigate } from "react-router"
-import { Link } from "react-router-dom"
 
-const Login = (props) => {
+const AdminLogin = (props) => {
   const [values, setValues] = useState({
     username: "",
     password: "",
@@ -31,9 +30,14 @@ const Login = (props) => {
       password: values.password,
     })
       .then((res) => {
+        console.log(res);
         setLoading(false)
-        let homePage = res?.attributes?.["custom:userType"] === "ServiceProvider" ? "/provider_home" : "/client_home";
-        navigate(homePage)        
+        if(res.attributes?.["custom:userType"] === "superadmin") {
+          navigate("/admin_home")
+        } else {
+          Auth.signOut()
+          setError("Unauthorized access admin panel.")
+        }
       })
       .catch((err) => {
         console.log(err)
@@ -44,7 +48,7 @@ const Login = (props) => {
 
   return (
     <div className={styles.signinContainer}>
-      <div className={styles.title}>Login</div>
+      <div className={styles.title}>Admin Login</div>
       {error && <p className={styles.errorMessage}>{error}</p>}
       <div className={styles.form}>
         <div>
@@ -57,9 +61,8 @@ const Login = (props) => {
         <div className={styles.submitContainer}>
           <button className={styles.signinButton} disabled={loading} onClick={handleSignin}>Sign in</button>
         </div>
-      <div className="text-center mt-4 w-100">Not a member ? Join us from <Link to="/signup">here</Link></div>
     </div>
   );
 };
 
-export default Login;
+export default AdminLogin;

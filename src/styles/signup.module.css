@@ -34,3 +34,15 @@
   border-radius: 5px;
   width: 50%;
 }
+
+.select {
+  width: 90% !important;
+  background-color: white;
+}
+
+.errorMessage {
+  margin-top: 15px;
+  color: red;
+  padding: 10px 15px;
+  background-color: #ff000042;
+}
