@@ -24,7 +24,7 @@ const Signup = (props) => {
 
   useEffect(() => {
 
-    Axios.get(`http://ec2-54-210-27-133.compute-1.amazonaws.com:3000/department/departments`).then(res => {
+    Axios.get(`http://ec2-3-80-208-114.compute-1.amazonaws.com:3000/department/departments`).then(res => {
       setDepartmentList(res.data.departments || [])
     }).catch(e => console.log(e))
   }, [])

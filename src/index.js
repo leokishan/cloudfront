@@ -15,7 +15,7 @@ Amplify.configure({
     endpoints: [
       {
         name: "EC2_URL",
-        endpoint: "http://ec2-54-210-27-133.compute-1.amazonaws.com:3000",
+        endpoint: "http://ec2-3-80-208-114.compute-1.amazonaws.com:3000",
         custom_header: async () => { 
           return { Authorization: `Bearer ${(await Auth.currentSession()).getAccessToken().getJwtToken()}` }
         }
