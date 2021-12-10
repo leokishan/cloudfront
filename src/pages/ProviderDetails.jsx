@@ -36,7 +36,7 @@ const ProviderDetails = () => {
       client_name: userData.name,
       client_email: userData.email,
     }
-    axios.post(`${"http://localhost:3005"}/service/addservice`, params).then(res => {
+    axios.post(`${REACT_APP_API_URL}/service/addservice`, params).then(res => {
       setValues({ service_charge: "", service_type: "" })
     })
   }
@@ -47,7 +47,7 @@ const ProviderDetails = () => {
       setUserData(data?.attributes || {});
 
       axios
-        .post(`${"http://localhost:3005"}/service/provider_services`, {
+        .post(`${REACT_APP_API_URL}/service/provider_services`, {
           provider_id: location.state.user_id,
           service_status: "Finished"
         })

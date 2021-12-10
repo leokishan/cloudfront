@@ -17,7 +17,7 @@ const ProviderHome = () => {
     let data = await Auth.currentAuthenticatedUser().catch((err) => ({}));
     if (data?.attributes.sub) {
       axios
-        .post(`${"http://localhost:3005"}/service/provider_services`, {
+        .post(`${REACT_APP_API_URL}/service/provider_services`, {
           provider_id: data?.attributes.sub,
         })
         .then((res) => {
@@ -29,7 +29,7 @@ const ProviderHome = () => {
 
   const changeStatus = (ele, status) => {
     axios
-      .patch(`${"http://localhost:3005"}/service/modifyservice`, {
+      .patch(`${REACT_APP_API_URL}/service/modifyservice`, {
         service_id: ele.service_id,
         updateKey: "service_status",
         updateValue: status,
