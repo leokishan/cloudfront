@@ -1,31 +1,69 @@
 // import React from "react"
-import React, {useState, useEffect} from "react"
-import {Button, ListGroup, Badge} from 'react-bootstrap'
+import React, { useState, useEffect } from "react";
+import { Button, ListGroup, Badge } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
-import axios from "axios"
+import axios from "axios";
+import ProviderImg from "../images/provider.png";
 
 const AdminHome = () => {
-const { REACT_APP_API_URL } = process.env
-const [userList, setUserList] = useState([])
-useEffect(() => {
-  axios.get(`${REACT_APP_API_URL}/user/users`).then(res => {
-    setUserList(res.data.users || [])
-  }).catch(e => console.log(e))
-}, [])
+  const { REACT_APP_API_URL } = process.env;
+  const [userList, setUserList] = useState([]);
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  const deleteUser = (id) => {
+    axios
+      .post(`${REACT_APP_API_URL}/user/deleteuser`, {
+        user_id: id,
+      })
+      .then((res) => {
+        getUsers();
+      })
+      .catch((e) => console.log(e));
+  };
+
+  const getUsers = () => {
+    axios
+      .get(`${REACT_APP_API_URL}/user/users`)
+      .then((res) => {
+        setUserList(res.data.users || []);
+      })
+      .catch((e) => console.log(e));
+  };
 
   return (
-  <div class="d-flex">
-    { userList.map(ele => (
-      <Card style={{ width: '18rem' , margin:"2%", padding:"15px"}}>
-        <div>
-        <Card.Img variant="top" src="holder.js/100px180" />
-          <p className="mt-3"><b>{ele.user_name} </b> ({ele.user_type})</p>
-          <p class="text-secondary">{ele.user_email}</p>
-          <p className="text-center"><Button style={{backgroundColor: "red"}}>Remove User</Button></p>
-        </div>
-    </Card>
-    ))}
-  </div>)
-}
+    <>
+      <h3 className="mt-4 text-center">Site user list</h3>
+      <div class="d-flex" style={{ flexWrap: "wrap" }}>
+        {userList.length > 0
+          ? userList.map((ele) => (
+              <Card style={{ width: "250px", margin: "2%", padding: "15px" }}>
+                <div>
+                  <Card.Img
+                    variant="top"
+                    src="https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortRound&accessoriesType=Prescription02&hairColor=Blonde&facialHairType=BeardLight&facialHairColor=Blonde&clotheType=GraphicShirt&clotheColor=Black&graphicType=Diamond&eyeType=Default&eyebrowType=UpDownNatural&mouthType=Twinkle&skinColor=Yellow"
+                  />
+                  <p className="mt-3">
+                    <b>{ele.user_name} </b> ({ele.user_type})
+                  </p>
+                  <p class="text-secondary">{ele.user_email}</p>
+                  <p className="text-center">
+                    <Button
+                      onClick={() => deleteUser(ele.user_id)}
+                      style={{ backgroundColor: "red" }}
+                    >
+                      Remove User
+                    </Button>
+                  </p>
+                </div>
+              </Card>
+            ))
+          : "Nothing to show"}
+      </div>
+    </>
+  );
+};
 
-export default AdminHome
+export default AdminHome;
