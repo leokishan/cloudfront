@@ -4,6 +4,7 @@ import AdminHome from "./pages/AdminHome";
 import AdminLogin from "./pages/AdminLogin";
 import ClientHome from "./pages/ClientHome";
 import Home from "./pages/Home";
+import ListProvider from "./pages/ListProvider";
 import Login from "./pages/Login";
 import ProviderDetails from "./pages/ProviderDetails";
 import ProviderHome from "./pages/ProviderHome";
@@ -22,6 +23,7 @@ function App() {
           <Route path="/admin_home" element={<AdminHome />} />
           <Route path="/services" element={<Services />} />
           <Route path="/provider_home" element={<ProviderHome />} />
+          <Route path="/list_provider/:id" element={<ListProvider />} />
           <Route path="/client_home" element={<ClientHome />} />
           <Route path="/view_provider/:id" element={<ProviderDetails />} />
           <Route path="/" element={<Home />} />

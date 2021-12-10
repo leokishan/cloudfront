@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Auth } from "aws-amplify"
 import styles from "../styles/login.module.css";
 import { useNavigate } from "react-router"
+import { Link } from "react-router-dom"
 
 const Login = (props) => {
   const [values, setValues] = useState({
@@ -56,6 +57,7 @@ const Login = (props) => {
         <div className={styles.submitContainer}>
           <button className={styles.signinButton} disabled={loading} onClick={handleSignin}>Sign in</button>
         </div>
+      <div className="text-center mt-4 w-100">Not a member ? Join us from <Link to="/signup">here</Link></div>
     </div>
   );
 };

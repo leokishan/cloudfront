@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "../styles/signup.module.css";
 import { Auth } from "aws-amplify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios"
 
 const { REACT_APP_API_URL } = process.env
@@ -58,10 +58,10 @@ const Signup = (props) => {
       await axios.post(`${REACT_APP_API_URL}/user/adduser`, {
         user_id: res.userSub,
         user_type: values.loginType,
-        user_name: values.Username,
+        user_name: values.name,
         user_email: values.Email,
         department_id: values.department,
-        department_name: departmentObj.department_name,
+        department_name: departmentObj?.department_name || "",
       })
       setLoading(false)
       navigate("/login")
@@ -159,6 +159,7 @@ const Signup = (props) => {
           Sign Up
         </button>
       </div>
+      <div className="text-center mt-4 w-100">Already a member ? <Link to="/login">Login here</Link></div>
     </div>
   );
 };

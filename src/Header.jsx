@@ -47,9 +47,8 @@ const Header = () => {
       <div className="d-flex align-items-center">
 
       <div className="logo-text cursor-pointer mr-2" onClick={redirectToBase}>
-        Site
+        Halifax Services
       </div>
-      <div>Dummy</div>
       
       </div>
       {isLoggedIn && (
