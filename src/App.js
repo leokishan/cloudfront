@@ -6,6 +6,7 @@ import ClientHome from "./pages/ClientHome";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import ProviderHome from "./pages/ProviderHome";
+import Services from "./pages/Services";
 import Signup from "./pages/Signup";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/admin_login" element={<AdminLogin />} />
           <Route path="/admin_home" element={<AdminHome />} />
+          <Route path="/services" element={<Services />} />
           <Route path="/provider_home" element={<ProviderHome />} />
           <Route path="/client_home" element={<ClientHome />} />
           <Route path="/" element={<Home />} />
